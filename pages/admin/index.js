@@ -2,6 +2,7 @@ import AuthCheck from '@/components/AuthCheck';
 import PostFeed from '@/components/PostFeed';
 import { UserContext } from '@/lib/context';
 import { auth } from '@/lib/firebase';
+import styles from '@/styles/Admin.module.css';
 import {
     collection,
     doc,
@@ -68,7 +69,7 @@ function CreateNewPost() {
             slug,
             uid,
             username,
-            published: true,
+            published: false,
             content: '# hello world',
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
@@ -87,7 +88,7 @@ function CreateNewPost() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="My Awesome Article!"
-                className=""
+                className={styles.input}
             />
             <p>
                 <strong>Slug:</strong> {slug}

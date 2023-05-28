@@ -1,6 +1,7 @@
 import MetaTags from '@/components/Metatags';
 import PostContent from '@/components/PostContent';
 import { getUserWithUsername, postToJSON } from '@/lib/firebase';
+import styles from '@/styles/Post.module.css';
 import {
     collectionGroup,
     doc,
@@ -57,7 +58,7 @@ export default function PostPage(props) {
     const post = realtimePost || props.post;
 
     return (
-        <main className=''>
+        <main className={styles.container}>
             <MetaTags title='NXT-FIRE | user post page' />
             <section>
                 <PostContent post={post} />
