@@ -1,23 +1,24 @@
-import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
+import Head from 'next/head';
 
 import Loader from '../components/Loader';
 
-import toast from 'react-hot-toast';
-import {
-    Timestamp,
-    query,
-    where,
-    orderBy,
-    limit,
-    collectionGroup,
-    getDocs,
-    startAfter,
-    getFirestore,
-} from 'firebase/firestore';
-import { postToJSON } from '@/lib/firebase';
-import { useState } from 'react';
+import MetaTags from '@/components/Metatags';
 import PostFeed from '@/components/PostFeed';
+import { postToJSON } from '@/lib/firebase';
+import {
+  Timestamp,
+  collectionGroup,
+  getDocs,
+  getFirestore,
+  limit,
+  orderBy,
+  query,
+  startAfter,
+  where,
+} from 'firebase/firestore';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const LIMIT = 1;
 
@@ -74,6 +75,7 @@ export default function Home(props) {
 
     return (
         <main>
+            <MetaTags title="NXT-FIRE | home page" />
             <PostFeed posts={posts} />
 
             {!loading && !postsEnd && (

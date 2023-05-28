@@ -1,3 +1,4 @@
+import MetaTags from '@/components/Metatags';
 import PostContent from '@/components/PostContent';
 import { getUserWithUsername, postToJSON } from '@/lib/firebase';
 import {
@@ -57,6 +58,7 @@ export default function PostPage(props) {
 
     return (
         <main className=''>
+            <MetaTags title='NXT-FIRE | user post page' />
             <section>
                 <PostContent post={post} />
             </section>
