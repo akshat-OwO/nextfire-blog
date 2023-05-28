@@ -1,13 +1,15 @@
+import PostContent from '@/components/PostContent';
 import { getUserWithUsername, postToJSON } from '@/lib/firebase';
 import {
-    doc,
-    getDocs,
-    getDoc,
     collectionGroup,
-    query,
-    limit,
+    doc,
+    getDoc,
+    getDocs,
     getFirestore,
+    limit,
+    query,
 } from 'firebase/firestore';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 
 export async function getStaticProps({ params }) {
     const { username, slug } = params;
@@ -47,6 +49,23 @@ export async function getStaticPaths() {
     };
 }
 
-export default function PostPage({}) {
-    return <main></main>;
+export default function PostPage(props) {
+    const postRef = doc(getFirestore(), props.path);
+    const [realtimePost] = useDocumentData(postRef);
+
+    const post = realtimePost || props.post;
+
+    return (
+        <main className=''>
+            <section>
+                <PostContent post={post} />
+            </section>
+
+            <aside className='card'>
+                <p>
+                    <strong>{post.heartCount || 0} 🤍</strong>
+                </p>
+            </aside>
+        </main>
+    );
 }
