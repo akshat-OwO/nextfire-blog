@@ -1,4 +1,5 @@
 import AuthCheck from '@/components/AuthCheck';
+import ImageUploader from '@/components/ImageUploader';
 import { auth } from '@/lib/firebase';
 import styles from '@/styles/Admin.module.css';
 import {
@@ -79,6 +80,8 @@ function PostForm({ defaultValues, postRef, preview }) {
         formState: { errors },
     } = useForm({ defaultValues, mode: 'onChange' });
 
+    const { isValid, isDirty } = formState;
+
     const updatePost = async ({ content, published }) => {
         await updateDoc(postRef, {
             content,
@@ -100,6 +103,9 @@ function PostForm({ defaultValues, postRef, preview }) {
             )}
 
             <div className={preview ? styles.hidden : styles.controls}>
+
+                <ImageUploader />
+
                 <textarea
                     name="content"
                     id="content"
@@ -119,6 +125,8 @@ function PostForm({ defaultValues, postRef, preview }) {
                     })}
                 ></textarea>
 
+                {errors.content && <p className='text-danger'>{errors.content.message}</p>}
+
                 <fieldset>
                     <input
                         className={styles.checkbox}
@@ -129,7 +137,7 @@ function PostForm({ defaultValues, postRef, preview }) {
                     <label>Published</label>
                 </fieldset>
 
-                <button type="submit" className="btn-green">
+                <button type="submit" className="btn-green" disabled={!isDirty || !isValid}>
                     Save Changes
                 </button>
             </div>
